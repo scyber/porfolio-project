@@ -6,8 +6,8 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.example.flink-jobs</groupId>
-  <artifactId>flink-jobs</artifactId>
+  <groupId>com.example.jobs</groupId>
+  <artifactId>generator-job</artifactId>
   <build>
     <plugins>
       <plugin>

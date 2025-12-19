@@ -48,10 +48,6 @@ public class Main {
         logger.debug("Debug info: args={}", (Object) args);
 
 		 
-		 DataStreamSource<String> stream =
-		         env.fromSource(source,
-		         WatermarkStrategy.noWatermarks(),
-		         "Generator Source");
 		
 		
 

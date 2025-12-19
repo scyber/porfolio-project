@@ -126,7 +126,8 @@
 
 	</dependencyManagement>
 	<modules>
-		<module>flink-jobs</module>
+		<module>generator-job</module>
+		<module>kafka-job</module>
 	</modules>
 
 	<build>
