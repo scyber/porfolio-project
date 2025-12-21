@@ -15,6 +15,8 @@
 	<properties>
 		<maven.compiler.source>21</maven.compiler.source>
 		<maven.compiler.target>21</maven.compiler.target>
+		<flink.version>2.2.0</flink.version>
+		<kafka-connector.version>4.0.1-2.0</kafka-connector.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -37,28 +39,34 @@
 
 			<dependency>
 				<groupId>org.apache.flink</groupId>
+				<artifactId>flink-connector-datagen</artifactId>
+				<version>${flink.version}</version>
+
+			</dependency>
+			<dependency>
+				<groupId>org.apache.flink</groupId>
 				<artifactId>flink-quickstart-java</artifactId>
-				<version>2.2.0</version>
+				<version>{flink.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flink</groupId>
 				<artifactId>flink-core</artifactId>
-				<version>2.2.0</version>
+				<version>{flink.version}</version>
 				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flink</groupId>
 				<artifactId>flink-streaming-java</artifactId>
-				<version>2.2.0</version>
+				<version>{flink.version}</version>
 				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flink</groupId>
 				<artifactId>flink-test-utils</artifactId>
-				<version>2.2.0</version>
+				<version>{flink.version}</version>
 				<scope>test</scope>
 			</dependency>
 
@@ -115,11 +123,34 @@
 				<artifactId>lombok</artifactId>
 				<version>1.18.38</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.apache.flink</groupId>
 				<artifactId>flink-connector-kafka</artifactId>
 				<version>4.0.1-2.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter</artifactId>
+				<version>3.5.3</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<version>3.5.3</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.springframework.kafka</groupId>
+				<artifactId>spring-kafka</artifactId>
+				<version>3.2.2</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>1.18.38</version>
 			</dependency>
 
 		</dependencies>
@@ -128,6 +159,7 @@
 	<modules>
 		<module>generator-job</module>
 		<module>kafka-job</module>
+		<module>backend</module>
 	</modules>
 
 	<build>
