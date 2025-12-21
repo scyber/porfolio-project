@@ -95,10 +95,33 @@ services:
     environment:
       POSTGRES_USER: postgres-user
       POSTGRES_PASSWORD: postgres-pw
-      POSTGRES_DB: customers
+      POSTGRES_DB: personalization
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - proxynet
 
+  backend:
+    build: ./backend
+    container_name: backend
+    depends_on:
+       - kafka
+       - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/personalization
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: pass
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      TOPIC_EVENTS: events
+      TOPIC_PROFILES: profiles
+    ports:
+      - "9090:8080"
+    networks:
+      - proxynet
+
+
+  
 #  kafka-connect:
 #    build:
 #      context: confluent-hub-components/infra/kafka-connect

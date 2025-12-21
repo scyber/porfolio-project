@@ -5,8 +5,8 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://postgres:5432/personalization
-    username: user
-    password: pass
+    username: postgres-user
+    password: postgres-pw
 
 topics:
   events: events

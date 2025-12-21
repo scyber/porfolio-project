@@ -9,7 +9,7 @@ import com.backend.personalization.model.Event;
 @Component
 public class KafkaEventPrducer implements EventProducer{
 	
-	private final KafkaTemplate<String, Event> kafkaTemplate;
+	private final KafkaTemplate<Long, Event> kafkaTemplate;
 	
 	@Value("${topics.events}")
 	private String eventsTopic;
@@ -20,7 +20,6 @@ public class KafkaEventPrducer implements EventProducer{
 
 	@Override
 	public void produce(Event event) {
-		// TODO Auto-generated method stub
 		this.kafkaTemplate.send(eventsTopic, event.getUserId(), event);
 	}
 

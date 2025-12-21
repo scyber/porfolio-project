@@ -1,7 +1,9 @@
 package com.backend.personalization.model;
 
-public interface Event {
+public class Event {
 
-	String getUserId();
+	public Long getUserId() {
+		return null;
+	}
 	
 }
