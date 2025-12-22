@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.backend.personalization.model.Event;
 
-@Service
+
 public interface EventService {
 
 	void processEvent(Event event);

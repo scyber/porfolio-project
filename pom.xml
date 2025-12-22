@@ -16,14 +16,26 @@
 		<maven.compiler.source>21</maven.compiler.source>
 		<maven.compiler.target>21</maven.compiler.target>
 		<flink.version>2.2.0</flink.version>
+		<spring.parent.version>3.5.5</spring.parent.version>
 		<kafka-connector.version>4.0.1-2.0</kafka-connector.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<postgres.version>42.7.7</postgres.version>
 	</properties>
 
 
 	<dependencyManagement>
 		<dependencies>
-
+		
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-parent</artifactId>
+				<version>${spring.parent.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-actuator</artifactId>
+				<version>${spring.parent.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter</artifactId>
@@ -133,12 +145,12 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter</artifactId>
-				<version>3.5.3</version>
+				<version>${spring.parent.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-web</artifactId>
-				<version>3.5.3</version>
+				<version>${spring.parent.version}</version>
 			</dependency>
 			
 			<dependency>
@@ -150,13 +162,19 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-data-jpa</artifactId>
-				<version>3.5.3</version>
+				<version>${spring.parent.version}</version>
 			</dependency>
 			
 			<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
 				<version>1.18.38</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>${postgres.version}</version>
 			</dependency>
 
 		</dependencies>

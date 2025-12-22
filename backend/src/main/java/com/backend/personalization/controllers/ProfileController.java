@@ -19,7 +19,7 @@ public class ProfileController {
 	}
 	
 	public Profile getProfile(@PathVariable String userId) {
-		return this.profileService.getProfile(userId);
+		throw new RuntimeException("Not Implemented yet");
 		
 	}
 }

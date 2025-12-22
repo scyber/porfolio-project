@@ -24,7 +24,7 @@ public class ContentController {
 	@GetMapping
 	public List<ContentItem> getContent(@RequestParam String lang){
 	
-		return this.contentService.getContent(lang);
+		throw new RuntimeException("Not Implemented Yet");
 	}
 
 }
