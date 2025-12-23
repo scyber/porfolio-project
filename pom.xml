@@ -184,6 +184,7 @@
 		<module>generator-job</module>
 		<module>kafka-job</module>
 		<module>backend</module>
+		<module>ingestion-service</module>
 	</modules>
 
 	<build>
