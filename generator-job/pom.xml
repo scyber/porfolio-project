@@ -22,16 +22,16 @@
 			<version>${flink.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
-				<groupId>org.apache.flink</groupId>
-				<artifactId>flink-connector-datagen</artifactId>		
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-connector-datagen</artifactId>
 		</dependency>
-			
+
 		<dependency>
 			<groupId>org.apache.flink</groupId>
 			<artifactId>flink-quickstart-java</artifactId>
-			<version>${flink.version}</version>
+			<version>${flink.version}</version>		
 		</dependency>
 
 
@@ -41,34 +41,19 @@
 			<version>${flink.version}</version>
 		</dependency>
 
+
+		<!-- Flink Kafka Connector (та же версия, что и Flink) -->
 		<dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-streaming-java</artifactId>
-            <version>${flink.version}</version>
-        </dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-connector-kafka</artifactId>
+			<version>4.0.1-2.0</version>
+			<scope>compile</scope>
+		</dependency>
 
-        <!-- Flink Core -->
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-core</artifactId>
-            <version>${flink.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- Flink Kafka Connector (та же версия, что и Flink) -->
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-connector-kafka</artifactId>
-            <version>4.0.1-2.0</version>
-            <scope>compile</scope>
-        </dependency>
-		
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
-		
-		
 
 
 		<dependency>

@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.example</groupId>
+		<artifactId>portfolio-project</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>streaming-event-enricher</artifactId>
+	<name>streaming-event-enricher</name>
+	
+	<properties>
+		<compiler.source.version>21</compiler.source.version>
+		<compiler.target.version>21</compiler.target.version>
+		<flink.version>2.2.0</flink.version>
+	</properties>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.flink</groupId>
+			<artifactId>flink-core</artifactId>
+			<version>${flink.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>

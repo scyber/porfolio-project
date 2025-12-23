@@ -185,6 +185,7 @@
 		<module>kafka-job</module>
 		<module>backend</module>
 		<module>ingestion-service</module>
+		<module>streaming-event-enricher</module>
 	</modules>
 
 	<build>
