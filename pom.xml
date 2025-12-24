@@ -20,12 +20,19 @@
 		<kafka-connector.version>4.0.1-2.0</kafka-connector.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<postgres.version>42.7.7</postgres.version>
+		<junit.version>5.8.1</junit.version>
+		<spring.doc.version>2.2.0</spring.doc.version>
 	</properties>
 
 
 	<dependencyManagement>
 		<dependencies>
-		
+			<dependency>
+				<groupId>org.apache.flink</groupId>
+				<artifactId>flink-parent</artifactId>
+				<version>${flink.version}</version>
+			</dependency>
+
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-parent</artifactId>
@@ -36,16 +43,35 @@
 				<artifactId>spring-boot-actuator</artifactId>
 				<version>${spring.parent.version}</version>
 			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-rest</artifactId>
+				<version>${spring.parent.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi</artifactId>
+				<version>${spring.doc.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-ui</artifactId>
+				<version>1.6.9</version>
+			</dependency>
+
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter</artifactId>
-				<version>5.8.1</version>
+				<version>${junit.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter-engine</artifactId>
-				<version>5.8.1</version>
+				<version>${junit.version}</version>
 				<scope>test</scope>
 			</dependency>
 
@@ -152,29 +178,35 @@
 				<artifactId>spring-boot-starter-web</artifactId>
 				<version>${spring.parent.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.springframework.kafka</groupId>
 				<artifactId>spring-kafka</artifactId>
 				<version>3.2.2</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-data-jpa</artifactId>
 				<version>${spring.parent.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
 				<version>1.18.38</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.postgresql</groupId>
 				<artifactId>postgresql</artifactId>
 				<version>${postgres.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+				<version>2.5.0</version>
 			</dependency>
 
 		</dependencies>

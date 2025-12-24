@@ -11,8 +11,8 @@
 	<name>streaming-event-enricher</name>
 	
 	<properties>
-		<compiler.source.version>21</compiler.source.version>
-		<compiler.target.version>21</compiler.target.version>
+		<maven.compiler.source>21</maven.compiler.source>
+		<maven.compiler.target>21</maven.compiler.target>
 		<flink.version>2.2.0</flink.version>
 	</properties>
 
