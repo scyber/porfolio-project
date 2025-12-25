@@ -17,7 +17,7 @@ infra-logs:
 # ---- Build ----
 
 build:
-	mvn clean install -DskipTests
+	mvn clean package -DskipTests
 
 clean:
 	mvn clean
@@ -55,7 +55,7 @@ logs-redis:
 # ---- Test Events ----
 
 send-event:
-	curl -X POST http://localhost:8081/events \
+	curl -X POST http://localhost:9090/ingest/events \
 	  -H "Content-Type: application/json" \
 	  -d '{"userId":"user123","eventType":"VIEW","timestamp":1714060800000,"context":{"page":"home","itemId":"item001","category":"tech","device":"mobile","geo":"de"}}'
 
