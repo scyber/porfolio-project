@@ -2,9 +2,6 @@ package com.example.api.dto;
 
 import java.io.Serializable;
 
-import lombok.Getter;
-import lombok.Setter;
-
 public class Resp<T> implements Serializable {
 
 	private String status;

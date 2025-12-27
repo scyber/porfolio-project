@@ -21,7 +21,7 @@ import jakarta.validation.Valid;
 
 
 @ApiResponses({ @ApiResponse(responseCode = "200", description = "Event recieved and Send"),
-		@ApiResponse(responseCode = "400", description = "Incorrect Event Format") })
+		@ApiResponse(responseCode = "400", description = "Incorrect Event Format or Faile send Event due to Kafka not availability") })
 
 @RestController
 @RequestMapping("/ingest")
