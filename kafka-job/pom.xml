@@ -1,20 +1,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>com.example</groupId>
-		<artifactId>portfolio-project</artifactId>
-		<version>1.0-SNAPSHOT</version>
-	</parent>
-	<artifactId>kafka-job</artifactId>
-	<name>kafka-job</name>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.example</groupId>
+        <artifactId>portfolio-project</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>kafka-job</artifactId>
+    <name>kafka-job</name>
 
 
-	<properties>
+    <properties>
         <flink.version>2.2.0</flink.version>
         <java.version>21</java.version>
-        
+
     </properties>
 
     <dependencies>
@@ -45,8 +45,8 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            </dependency>
-        
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -64,8 +64,10 @@
                         </goals>
                         <configuration>
                             <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.example.jobs.KafkaJob</mainClass>
+                                <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>
+                                        META-INF/services/org.apache.flink.table.factories.Factory</resource>
                                 </transformer>
                             </transformers>
                             <filters>

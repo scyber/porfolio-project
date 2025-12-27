@@ -1,217 +1,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Spring Boot parent (ВАЖНО: стоит сразу после modelVersion) -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.3.4</version>
+	</parent>
+
 	<groupId>com.example</groupId>
 	<artifactId>portfolio-project</artifactId>
+	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<version>1.0-SNAPSHOT</version>
-
-	<name>portfolio-project</name>
-
-	<url>http://maven.apache.org</url>
-
-	<properties>
-		<maven.compiler.source>21</maven.compiler.source>
-		<maven.compiler.target>21</maven.compiler.target>
-		<flink.version>2.2.0</flink.version>
-		<spring.parent.version>3.5.5</spring.parent.version>
-		<kafka-connector.version>4.0.1-2.0</kafka-connector.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<postgres.version>42.7.7</postgres.version>
-		<junit.version>5.8.1</junit.version>
-		<spring.doc.version>2.2.0</spring.doc.version>
-	</properties>
-
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.apache.flink</groupId>
-				<artifactId>flink-parent</artifactId>
-				<version>${flink.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-parent</artifactId>
-				<version>${spring.parent.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-actuator</artifactId>
-				<version>${spring.parent.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-data-rest</artifactId>
-				<version>${spring.parent.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springdoc</groupId>
-				<artifactId>springdoc-openapi</artifactId>
-				<version>${spring.doc.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springdoc</groupId>
-				<artifactId>springdoc-openapi-ui</artifactId>
-				<version>1.6.9</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.junit.jupiter</groupId>
-				<artifactId>junit-jupiter</artifactId>
-				<version>${junit.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.junit.jupiter</groupId>
-				<artifactId>junit-jupiter-engine</artifactId>
-				<version>${junit.version}</version>
-				<scope>test</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.apache.flink</groupId>
-				<artifactId>flink-connector-datagen</artifactId>
-				<version>${flink.version}</version>
-
-			</dependency>
-			<dependency>
-				<groupId>org.apache.flink</groupId>
-				<artifactId>flink-quickstart-java</artifactId>
-				<version>{flink.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.apache.flink</groupId>
-				<artifactId>flink-core</artifactId>
-				<version>{flink.version}</version>
-				<scope>provided</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.apache.flink</groupId>
-				<artifactId>flink-streaming-java</artifactId>
-				<version>{flink.version}</version>
-				<scope>provided</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.apache.flink</groupId>
-				<artifactId>flink-test-utils</artifactId>
-				<version>{flink.version}</version>
-				<scope>test</scope>
-			</dependency>
-
-
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>2.0.13</version>
-			</dependency>
-
-
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-slf4j2-impl</artifactId>
-				<version>2.23.1</version>
-			</dependency>
-
-
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-core</artifactId>
-				<version>2.23.1</version>
-			</dependency>
-
-
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-api</artifactId>
-				<version>2.23.1</version>
-			</dependency>
-
-			<dependency>
-				<groupId>io.debezium</groupId>
-				<artifactId>debezium-connector-postgres</artifactId>
-				<version>3.3.2.Final</version>
-			</dependency>
-
-			<dependency>
-				<groupId>io.debezium</groupId>
-				<artifactId>debezium-api</artifactId>
-				<version>3.3.2.Final</version>
-			</dependency>
-
-			<!--
-			https://mvnrepository.com/artifact/com.ververica/flink-connector-postgres-cdc -->
-			<dependency>
-				<groupId>com.ververica</groupId>
-				<artifactId>flink-connector-postgres-cdc</artifactId>
-				<version>3.0.1</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.projectlombok</groupId>
-				<artifactId>lombok</artifactId>
-				<version>1.18.38</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.apache.flink</groupId>
-				<artifactId>flink-connector-kafka</artifactId>
-				<version>4.0.1-2.0</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter</artifactId>
-				<version>${spring.parent.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-web</artifactId>
-				<version>${spring.parent.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework.kafka</groupId>
-				<artifactId>spring-kafka</artifactId>
-				<version>3.2.2</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-data-jpa</artifactId>
-				<version>${spring.parent.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.projectlombok</groupId>
-				<artifactId>lombok</artifactId>
-				<version>1.18.38</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.postgresql</groupId>
-				<artifactId>postgresql</artifactId>
-				<version>${postgres.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springdoc</groupId>
-				<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-				<version>2.5.0</version>
-			</dependency>
-
-		</dependencies>
-
-	</dependencyManagement>
 	<modules>
 		<module>generator-job</module>
 		<module>kafka-job</module>
@@ -220,18 +24,60 @@
 		<module>streaming-event-enricher</module>
 	</modules>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
-				<configuration>
-					<source>${maven.compiler.source}</source>
-					<target>${maven.compiler.target}</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+	<properties>
+		<maven.compiler.source>21</maven.compiler.source>
+		<maven.compiler.target>21</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- Внешние библиотеки, которые НЕ управляются Spring Boot -->
+		<flink.version>2.2.0</flink.version>
+		<postgres.version>42.7.7</postgres.version>
+		<debezium.version>3.3.2.Final</debezium.version>
+	</properties>
+
+	<!-- Dependency Management: только внешние библиотеки -->
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- Flink -->
+			<dependency>
+				<groupId>org.apache.flink</groupId>
+				<artifactId>flink-parent</artifactId>
+				<version>${flink.version}</version>
+			</dependency>
+
+			<!-- Debezium -->
+			<dependency>
+				<groupId>io.debezium</groupId>
+				<artifactId>debezium-api</artifactId>
+				<version>${debezium.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.debezium</groupId>
+				<artifactId>debezium-connector-postgres</artifactId>
+				<version>${debezium.version}</version>
+			</dependency>
+
+			<!-- PostgreSQL -->
+			<dependency>
+				<groupId>org.postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>${postgres.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.flink</groupId>
+				<artifactId>flink-connector-datagen</artifactId>
+				<version>${flink.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.ververica</groupId>
+				<artifactId>flink-connector-postgres-cdc</artifactId>
+				<version>3.0.1</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
 
 </project>

@@ -18,11 +18,13 @@ import com.example.model.RawUserEvent;
 @Configuration
 public class KafkaProducerConfig {
 
-    @Value("${kafka.bootstrap-servers}")
+    @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
     
-    @Value("${kafka.producer.max.retry.times}")
+    @Value("${spring.kafka.producer.properties.retries}")
     private Integer producerMaxRetryTimes;
+
+    //ToDo add kafka properties here
 
     @Bean
     public ProducerFactory<String, RawUserEvent> producerFactory() {
@@ -35,11 +37,11 @@ public class KafkaProducerConfig {
         config.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, true);
         config.put(ProducerConfig.ACKS_CONFIG, "all");
         // Add maximum Retry times
-        config.put(ProducerConfig.RETRIES_CONFIG, producerMaxRetryTimes);
+        config.put(ProducerConfig.RETRIES_CONFIG, 10);
         config.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, 1);
 
         // Transactions
-        config.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, "my-tx-id");
+        config.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, "user-event-tx-id");
 
         // exclude Jackson type headers
         config.put(JsonSerializer.ADD_TYPE_INFO_HEADERS, false);
