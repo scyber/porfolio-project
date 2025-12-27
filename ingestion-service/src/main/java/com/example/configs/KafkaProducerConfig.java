@@ -20,6 +20,9 @@ public class KafkaProducerConfig {
 
     @Value("${kafka.bootstrap-servers}")
     private String bootstrapServers;
+    
+    @Value("${kafka.producer.max.retry.times}")
+    private Integer producerMaxRetryTimes;
 
     @Bean
     public ProducerFactory<String, RawUserEvent> producerFactory() {
@@ -27,11 +30,27 @@ public class KafkaProducerConfig {
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+        
+        // Exactly Once
+        config.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, true);
+        config.put(ProducerConfig.ACKS_CONFIG, "all");
+        // Add maximum Retry times
+        config.put(ProducerConfig.RETRIES_CONFIG, producerMaxRetryTimes);
+        config.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, 1);
 
-        // чтобы Jackson не добавлял type headers
+        // Transactions
+        config.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, "my-tx-id");
+
+        // exclude Jackson type headers
         config.put(JsonSerializer.ADD_TYPE_INFO_HEADERS, false);
 
-        return new DefaultKafkaProducerFactory<>(config);
+        DefaultKafkaProducerFactory<String, RawUserEvent> kafkaProducerFactory =
+                new DefaultKafkaProducerFactory<>(config);
+
+        kafkaProducerFactory.setTransactionIdPrefix("tx-");
+        
+         
+        return kafkaProducerFactory;
     }
 
     @Bean

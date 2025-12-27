@@ -5,3 +5,7 @@ kafka:
   bootstrap-servers: localhost:9094
   topic:
     user-events: "raw-user-events"
+  producer:
+    max:
+      retry:
+        times: 10  
