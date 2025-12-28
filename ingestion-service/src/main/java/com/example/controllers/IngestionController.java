@@ -1,7 +1,5 @@
 package com.example.controllers;
 
-import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +23,6 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/ingest")
-
 public class IngestionController {
 
 	@Autowired
