@@ -22,6 +22,7 @@
 		<module>backend</module>
 		<module>ingestion-service</module>
 		<module>streaming-event-enricher</module>
+		<module>common</module>
 	</modules>
 
 	<properties>
@@ -44,6 +45,18 @@
 				<groupId>org.apache.flink</groupId>
 				<artifactId>flink-parent</artifactId>
 				<version>${flink.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.flink</groupId>
+				<artifactId>flink-runtime</artifactId>
+				<version>${flink.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.flink</groupId>
+				<artifactId>flink-connector-kafka</artifactId>
+				<version>4.0.1-2.0</version>
 			</dependency>
 
 			<!-- Debezium -->
