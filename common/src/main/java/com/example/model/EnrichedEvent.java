@@ -25,6 +25,6 @@ import java.util.UUID;
 
  */
 public record EnrichedEvent(UUID eventId, String userId, EventType eventType, Long timestamp,
-		EventContext eventContext) {
+		EventContext eventContext, Enrichment enrichment) {
 
 }
