@@ -18,8 +18,8 @@ public class EnrichFunction extends RichMapFunction<RawUserEvent, EnrichedEvent>
 
 	private EnrichedEvent enrich(RawUserEvent userEvent) {
 
-		Enrichment enrichment = new Enrichment(userEvent.getContext().getCategory(), userEvent.getContext().getDevice(),
-				userEvent.getContext().getGeo());
+		Enrichment enrichment = new Enrichment(userEvent.getContext().category(), userEvent.getContext().device(),
+				userEvent.getContext().geo());
 
 		EnrichedEvent enrichedEvent = new EnrichedEvent(userEvent.getEventId(), userEvent.getUserId(),
 				userEvent.getEventType(), userEvent.getTimestamp(), userEvent.getContext(), enrichment);

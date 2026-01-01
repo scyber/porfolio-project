@@ -1,11 +1,7 @@
-
 services:
-
-  x-kafka-common:
-    &kafka-common
+  x-kafka-common: &kafka-common
     image: bitnami/kafka:3.7
-    environment:
-      &kafka-common-env
+    environment: &kafka-common-env
       KAFKA_ENABLE_KRAFT: yes
       ALLOW_PLAINTEXT_LISTENER: yes
       KAFKA_KRAFT_CLUSTER_ID: porfolio-application
@@ -16,7 +12,6 @@ services:
       KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: false
     networks:
       - proxynet
-
 
   kafka-0:
     <<: *kafka-common
@@ -31,7 +26,6 @@ services:
     volumes:
       - kafka_0_data:/bitnami/kafka
 
-
   kafka-1:
     <<: *kafka-common
     restart: always
@@ -44,7 +38,6 @@ services:
       KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka-1:9092,EXTERNAL://127.0.0.1:9095
     volumes:
       - kafka_1_data:/bitnami/kafka
-
 
   kafka-2:
     <<: *kafka-common
@@ -59,20 +52,19 @@ services:
     volumes:
       - kafka_2_data:/bitnami/kafka
 
-
-#  schema-registry:
-#    image: bitnami/schema-registry:7.6
-#    ports:
-#      - '127.0.0.1:8081:8081'
-#    depends_on:
-#      - kafka-0
-#      - kafka-1
-#      - kafka-2
-#    environment:
-#      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
-#      SCHEMA_REGISTRY_KAFKA_BROKERS: PLAINTEXT://kafka-0:9092,PLAINTEXT://kafka-1:9092,PLAINTEXT://kafka-2:9092
-#    networks:
-#      - proxynet
+  #  schema-registry:
+  #    image: bitnami/schema-registry:7.6
+  #    ports:
+  #      - '127.0.0.1:8081:8081'
+  #    depends_on:
+  #      - kafka-0
+  #      - kafka-1
+  #      - kafka-2
+  #    environment:
+  #      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+  #      SCHEMA_REGISTRY_KAFKA_BROKERS: PLAINTEXT://kafka-0:9092,PLAINTEXT://kafka-1:9092,PLAINTEXT://kafka-2:9092
+  #    networks:
+  #      - proxynet
 
   ui:
     image: provectuslabs/kafka-ui:v0.7.0
@@ -84,7 +76,6 @@ services:
       KAFKA_CLUSTERS_0_NAME: kraft
     networks:
       - proxynet
-
 
   postgres:
     image: debezium/postgres:16
@@ -103,33 +94,32 @@ services:
     #  - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - proxynet
-      
-#  redis:
-#    image: redis:7
-#    hostname: redis
-#    container_name: redis
-#    restart: unless-stopped
-#    healthcheck:
-#      test:
-#        - CMD
-#        - redis-cli
-#        - ping
-#    ports:
-#      - "6379:6379"
-#    networks:
-#      - proxynet
-  
-#  redis-insight:
-#    image: redis/redisinsight:latest
-#    container_name: redis_insight
-#    hostname: redis_insight
-#    ports:
-#      - "5540:5540"
-#    networks:
-#      - proxynet
-#    depends_on:
-#      - redis
-   
+
+  redis:
+    image: redis:7
+    hostname: redis
+    container_name: redis
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - redis-cli
+        - ping
+    ports:
+      - "6379:6379"
+    networks:
+      - proxynet
+
+  redis-insight:
+    image: redis/redisinsight:latest
+    container_name: redis_insight
+    hostname: redis_insight
+    ports:
+      - "5540:5540"
+    networks:
+      - proxynet
+    depends_on:
+      - redis
 
 #  backend:
 #    build: ../.
@@ -149,8 +139,6 @@ services:
 #    networks:
 #      - proxynet
 
-
-  
 #  kafka-connect:
 #    build:
 #      context: confluent-hub-components/infra/kafka-connect
@@ -195,7 +183,6 @@ services:
 networks:
   proxynet:
     name: custom_network
-
 
 volumes:
   kafka_0_data:
