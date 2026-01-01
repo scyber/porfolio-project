@@ -1,5 +1,7 @@
 package com.example.services;
 
+import java.util.concurrent.TimeUnit;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.handlers.KafkaSendException;
 import com.example.model.RawUserEvent;
-
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class KafkaProducerService implements IngestionService {
@@ -31,7 +31,7 @@ public class KafkaProducerService implements IngestionService {
         try {
             logger.info("Sending event to Kafka: {}", event);
             
-            kafkaTemplate.send(topic, event.userId(), event).get(1000, TimeUnit.MILLISECONDS);
+            kafkaTemplate.send(topic, event).get(1000, TimeUnit.MILLISECONDS);
 
             logger.info("Event successfully sent to Kafka");
         } catch (Exception e) {
