@@ -1,23 +1,16 @@
 package com.example.jobs;
 
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
-import org.apache.flink.api.common.serialization.DeserializationSchema;
-import org.apache.flink.api.common.serialization.SerializationSchema;
-import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.connector.kafka.sink.KafkaRecordSerializationSchema;
 import org.apache.flink.connector.kafka.sink.KafkaSink;
 import org.apache.flink.connector.kafka.source.KafkaSource;
 import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsInitializer;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.kafka.clients.consumer.OffsetResetStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.example.functions.EnrichFunction;
-import com.example.model.CategoryEvent;
 import com.example.model.EnrichedEvent;
-import com.example.model.Enrichment;
-import com.example.model.EventContext;
 import com.example.model.RawUserEvent;
 import com.example.serializers.EnrichEventSerializer;
 import com.example.serializers.RawUserEventDeserializer;
@@ -28,18 +21,19 @@ public class EventEnrichJob {
 	private static EnrichFunction enrichFunction = new EnrichFunction();
 
 	public static void main(String[] args) {
-		logger.info("Job started");
+		logger.info("Job EventEnrichJob started");
 
 		final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
 		// ToDo rework Use Resource Boundle
-		final String MY_BOOTSTRAP_SERVERS = "localhost:9094";
+		final String 
+		BOOTSTRAP_SERVERS = "kafka-0:9092,kafka-1:9092,kafka-2:9092";
 		final String rawUserEventsTopic = "raw-user-events";
 		final String enriechedUserEventsTopic = "enrieched-user-events";
 
 		// ToDo
 		KafkaSource<RawUserEvent> source = KafkaSource.<RawUserEvent>builder()
-				.setBootstrapServers(MY_BOOTSTRAP_SERVERS)
+				.setBootstrapServers(BOOTSTRAP_SERVERS)
 				.setTopics(rawUserEventsTopic)
 				.setGroupId("enricher-group")
 				// .setStartingOffsets(OffsetsInitializer.latest())
@@ -61,7 +55,7 @@ public class EventEnrichJob {
 				// .print();
 
 				.sinkTo(KafkaSink.<EnrichedEvent>builder()
-						.setBootstrapServers(MY_BOOTSTRAP_SERVERS)
+						.setBootstrapServers(BOOTSTRAP_SERVERS)
 						.setRecordSerializer(
 								KafkaRecordSerializationSchema.builder()
 										.setTopic(enriechedUserEventsTopic)

@@ -1,8 +1,6 @@
 package com.example.serializers;
 
 import org.apache.flink.api.common.serialization.SerializationSchema;
-
-import com.example.model.EnrichedEvent;
 import com.example.model.RawUserEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

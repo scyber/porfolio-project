@@ -32,7 +32,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<!-- Внешние библиотеки, которые НЕ управляются Spring Boot -->
-		<flink.version>2.2.0</flink.version>
+		<flink.version>2.1.1</flink.version>
 		<postgres.version>42.7.7</postgres.version>
 		<debezium.version>3.3.2.Final</debezium.version>
 	</properties>
