@@ -23,6 +23,7 @@
 		<module>ingestion-service</module>
 		<module>streaming-event-enricher</module>
 		<module>common</module>
+		<module>streaming-profile-aggregator</module>
 	</modules>
 
 	<properties>
