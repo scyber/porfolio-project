@@ -66,11 +66,11 @@
 				<artifactId>debezium-api</artifactId>
 				<version>${debezium.version}</version>
 			</dependency>
-			<dependency>
+			<!-- <dependency>
 				<groupId>io.debezium</groupId>
 				<artifactId>debezium-connector-postgres</artifactId>
 				<version>${debezium.version}</version>
-			</dependency>
+			</dependency> -->
 
 			<!-- PostgreSQL -->
 			<dependency>

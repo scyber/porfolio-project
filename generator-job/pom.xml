@@ -31,7 +31,7 @@
 		<dependency>
 			<groupId>org.apache.flink</groupId>
 			<artifactId>flink-quickstart-java</artifactId>
-			<version>${flink.version}</version>		
+			<version>${flink.version}</version>
 		</dependency>
 
 
@@ -79,10 +79,10 @@
 
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>io.debezium</groupId>
 			<artifactId>debezium-connector-postgres</artifactId>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>io.debezium</groupId>
