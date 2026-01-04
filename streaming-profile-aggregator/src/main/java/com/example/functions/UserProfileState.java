@@ -3,15 +3,15 @@ package com.example.functions;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.example.model.CategoryEvent;
 import com.example.model.UserProfile;
 
 public class UserProfileState {
 
-    private Map<CategoryEvent, Double> interests = new HashMap<>();
+    private Map<CategoryEvent, Double> interests = new ConcurrentHashMap<>();
     private Deque<String> recentItems = new ArrayDeque<>();
     private double activityScore = 0.0;
 

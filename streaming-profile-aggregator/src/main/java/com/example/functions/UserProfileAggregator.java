@@ -5,7 +5,7 @@ import org.apache.flink.api.common.state.ValueStateDescriptor;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
 import org.apache.flink.util.Collector;
-
+import com.example.model.CategoryEvent;
 import com.example.model.EnrichedEvent;
 import com.example.model.UserProfileUpdated;
 
@@ -52,13 +52,11 @@ public class UserProfileAggregator
                 event.getEnrichment().getCategory() == null) {
             return;
         }
-        // ToDo to think how to
+        CategoryEvent category = event.getEnrichment().getCategory();
+        double oldValue = state.getInterests().getOrDefault(category, 0.0);
+        double newValue = oldValue * 0.9 + 0.1; // decay + boost
+        state.getInterests().put(category, newValue);
 
-        // for (CategoryEvent category : event.getEnrichment().getCategory()) {
-        // double oldValue = state.getInterests().getOrDefault(category, 0.0);
-        // double newValue = oldValue * 0.9 + 0.1; // decay + boost
-        // state.getInterests().put(category, newValue);
-        // }
     }
 
     private void updateRecentItems(UserProfileState state, EnrichedEvent event) {
