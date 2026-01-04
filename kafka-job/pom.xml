@@ -39,9 +39,8 @@
             <artifactId>flink-connector-kafka</artifactId>
             <scope>compile</scope>
         </dependency>
-        
 
-        <!-- Логирование -->
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
