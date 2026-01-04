@@ -22,7 +22,7 @@ services:
       <<: *kafka-common-env
       KAFKA_CFG_NODE_ID: 0
       KAFKA_CFG_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
-      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka-0:9092,EXTERNAL://host.docker.internal:9094
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka-0:9092,EXTERNAL://127.0.0.1:9094
     volumes:
       - kafka_0_data:/bitnami/kafka
 
@@ -35,7 +35,7 @@ services:
       <<: *kafka-common-env
       KAFKA_CFG_NODE_ID: 1
       KAFKA_CFG_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9095
-      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka-1:9092,EXTERNAL://host.docker.internal:9095
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka-1:9092,EXTERNAL://127.0.0.1:9095
     volumes:
       - kafka_1_data:/bitnami/kafka
 
@@ -48,7 +48,7 @@ services:
       <<: *kafka-common-env
       KAFKA_CFG_NODE_ID: 2
       KAFKA_CFG_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9096
-      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka-2:9092,EXTERNAL://host.docker.internal:9096
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka-2:9092,EXTERNAL://127.0.0.1:9096
     volumes:
       - kafka_2_data:/bitnami/kafka
 
@@ -129,7 +129,7 @@ services:
     environment:
       - |
         FLINK_PROPERTIES=
-        jobmanager.rpc.address: jobmanager        
+        jobmanager.rpc.address: jobmanager
     networks:
       - proxynet
 

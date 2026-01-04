@@ -9,18 +9,24 @@ import com.example.model.CategoryEvent;
 import com.example.model.EnrichedEvent;
 import com.example.model.UserProfileUpdated;
 
-public class UserProfileAggregator
+public class UserProfileAggregatorFunction
         extends KeyedProcessFunction<String, EnrichedEvent, UserProfileUpdated> {
 
     private static final long serialVersionUID = 1L;
-    private transient ValueState<UserProfileState> profileState;
+    // private transient ValueState<UserProfileState> profileState;
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory
+            .getLogger(UserProfileAggregatorFunction.class);
 
-    public void open(Configuration parameters) {
-        ValueStateDescriptor<UserProfileState> descriptor = new ValueStateDescriptor<>(
-                "userProfileState",
-                UserProfileState.class);
-        profileState = getRuntimeContext().getState(descriptor);
-    }
+    // public void open(Configuration parameters) {
+    // ValueStateDescriptor<UserProfileState> descriptor = new
+    // ValueStateDescriptor<>(
+    // "userProfileState",
+    // UserProfileState.class);
+    // logger.info("Initializing UserProfileState ValueState");
+    // logger.info("UserProfileState Descriptor: {}", descriptor);
+    // profileState = getRuntimeContext().getState(descriptor);
+    // logger.info("UserProfileState ValueState initialized: {}", profileState);
+    // }
 
     @Override
     public void processElement(
@@ -28,16 +34,28 @@ public class UserProfileAggregator
             KeyedProcessFunction<String, EnrichedEvent, UserProfileUpdated>.Context ctx,
             Collector<UserProfileUpdated> out) throws Exception {
 
+        ValueStateDescriptor<UserProfileState> descriptor = new ValueStateDescriptor<>(
+                "userProfileState",
+                UserProfileState.class);
+        logger.info("Initializing UserProfileState ValueState");
+
+        ValueState<UserProfileState> profileState = getRuntimeContext().getState(descriptor);
+
         UserProfileState state = profileState.value();
+        logger.info("Retrieved UserProfileState from state: {}", state);
         if (state == null) {
+            logger.info("UserProfileState is null, creating new one");
             state = new UserProfileState();
         }
 
         updateInterests(state, event);
+        logger.info("Updated interests in UserProfileState: {}", state.getInterests());
         updateRecentItems(state, event);
+        logger.info("Updated recent items in UserProfileState: {}", state.getRecentItems());
         updateActivityScore(state, event);
-
+        logger.info("Updated activity score in UserProfileState: {}", state.getActivityScore());
         profileState.update(state);
+        logger.info("Updated UserProfileState stored back to state: {}", state);
 
         UserProfileUpdated updated = new UserProfileUpdated(
                 event.getUserId(),

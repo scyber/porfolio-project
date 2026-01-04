@@ -10,7 +10,7 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 //import org.apache.flink.connector.base.*; //DeliveryGuarantee; need to add dependency
-import com.example.functions.UserProfileAggregator;
+import com.example.functions.UserProfileAggregatorFunction;
 import com.example.model.EnrichedEvent;
 import com.example.model.UserProfileUpdated;
 import com.example.serilisations.JsonDeserializationSchema;
@@ -38,16 +38,17 @@ public class AggregatorProfileJob {
                                 .setValueOnlyDeserializer(
                                                 new JsonDeserializationSchema<>(EnrichedEvent.class))
                                 .build();
+                logger.info("Kafka Source created for topic: {}", enriechedUserEventsTopic);
 
                 DataStreamSource<EnrichedEvent> eventsStream = env.fromSource(source, WatermarkStrategy.noWatermarks(),
                                 "enriched-events-source");
-
+                logger.info("DataStreamSource created from Kafka source {} ", eventsStream);
                 // 3. Aggregation pipeline
                 SingleOutputStreamOperator<UserProfileUpdated> profiles = eventsStream
                                 .keyBy(EnrichedEvent::getUserId)
-                                .process(new UserProfileAggregator())
+                                .process(new UserProfileAggregatorFunction())
                                 .name("user-profile-aggregator");
-
+                logger.info("UserProfile aggregation pipeline created: {}", profiles);
                 // 4. Kafka sink: user-profile-updates (UserProfileUpdated -> JSON)
                 KafkaSink<UserProfileUpdated> sink = KafkaSink.<UserProfileUpdated>builder()
                                 .setBootstrapServers("kafka-0:9092,kafka-1:9092,kafka-2:9092")
@@ -60,7 +61,7 @@ public class AggregatorProfileJob {
                                 // .setDeliverGuarantee(
                                 // DeliveryGuarantee.AT_LEAST_ONCE)
                                 .build();
-
+                logger.info("Kafka Sink created for topic: user-profile-updates");
                 profiles.sinkTo(sink).name("user-profile-updates-sink");
 
                 // 5. Execute
