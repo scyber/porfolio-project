@@ -24,6 +24,7 @@
 		<module>streaming-event-enricher</module>
 		<module>common</module>
 		<module>streaming-profile-aggregator</module>
+		<module>streaming-profile-store</module>
 	</modules>
 
 	<properties>
