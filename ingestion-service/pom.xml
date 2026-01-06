@@ -11,14 +11,12 @@
 	<artifactId>ingestion-service</artifactId>
 
 	<properties>
-		<maven.compiler.source>21</maven.compiler.source>
-		<maven.compiler.target>21</maven.compiler.target>
 		<flink.version>2.1.1</flink.version>
 		<spring.doc.version>2.5.0</spring.doc.version>
 	</properties>
 
 	<dependencies>
-	
+
 		<dependency>
 			<groupId>com.example</groupId>
 			<artifactId>common</artifactId>
