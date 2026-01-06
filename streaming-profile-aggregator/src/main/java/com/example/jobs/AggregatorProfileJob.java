@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 import com.example.functions.UserProfileAggregatorFunction;
 import com.example.model.EnrichedEvent;
 import com.example.model.UserProfileUpdated;
-import com.example.serilisations.JsonDeserializationSchema;
-import com.example.serilisations.JsonSerializationSchema;
+import com.example.serializers.JsonDeserializationSchema;
+import com.example.serializers.JsonSerializationSchema;
 
 public class AggregatorProfileJob {
 

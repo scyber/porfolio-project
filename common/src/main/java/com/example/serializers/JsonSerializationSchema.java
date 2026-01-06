@@ -1,4 +1,4 @@
-package com.example.serilisations;
+package com.example.serializers;
 
 import org.apache.flink.api.common.serialization.SerializationSchema;
 
