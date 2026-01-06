@@ -19,6 +19,8 @@ import com.example.serializers.JsonSerializationSchema;
 public class AggregatorProfileJob {
 
         private static final Logger logger = LoggerFactory.getLogger(AggregatorProfileJob.class);
+        private static final String BOOTSTRAP_SERVERS = "kafka-0:9092,kafka-1:9092,kafka-2:9092";
+        private static final String ENRICHED_EVENTS_TOPIC = "enrieched-user-events";
 
         public static void main(String[] args) {
 
@@ -32,32 +34,24 @@ public class AggregatorProfileJob {
 
                 // 2. Kafka source: enriched-events (JSON -> EnrichedEvent)
                 KafkaSource<EnrichedEvent> source = KafkaSource.<EnrichedEvent>builder()
-                                .setBootstrapServers("kafka-0:9092,kafka-1:9092,kafka-2:9092")
-                                .setTopics("enrieched-user-events")
+                                .setBootstrapServers(BOOTSTRAP_SERVERS).setTopics(ENRICHED_EVENTS_TOPIC)
                                 .setGroupId("user-profile-aggregator")
-                                .setValueOnlyDeserializer(
-                                                new JsonDeserializationSchema<>(EnrichedEvent.class))
-                                .build();
+                                .setValueOnlyDeserializer(new JsonDeserializationSchema<>(EnrichedEvent.class)).build();
                 logger.info("Kafka Source created for topic: {}", enriechedUserEventsTopic);
 
                 DataStreamSource<EnrichedEvent> eventsStream = env.fromSource(source, WatermarkStrategy.noWatermarks(),
                                 "enriched-events-source");
                 logger.info("DataStreamSource created from Kafka source {} ", eventsStream);
                 // 3. Aggregation pipeline
-                SingleOutputStreamOperator<UserProfileUpdated> profiles = eventsStream
-                                .keyBy(EnrichedEvent::getUserId)
-                                .process(new UserProfileAggregatorFunction())
-                                .name("user-profile-aggregator");
+                SingleOutputStreamOperator<UserProfileUpdated> profiles = eventsStream.keyBy(EnrichedEvent::getUserId)
+                                .process(new UserProfileAggregatorFunction()).name("user-profile-aggregator");
                 logger.info("UserProfile aggregation pipeline created: {}", profiles);
                 // 4. Kafka sink: user-profile-updates (UserProfileUpdated -> JSON)
                 KafkaSink<UserProfileUpdated> sink = KafkaSink.<UserProfileUpdated>builder()
                                 .setBootstrapServers("kafka-0:9092,kafka-1:9092,kafka-2:9092")
-                                .setRecordSerializer(
-                                                KafkaRecordSerializationSchema.<UserProfileUpdated>builder()
-                                                                .setTopic("user-profile-updates")
-                                                                .setValueSerializationSchema(
-                                                                                new JsonSerializationSchema<>())
-                                                                .build())
+                                .setRecordSerializer(KafkaRecordSerializationSchema.<UserProfileUpdated>builder()
+                                                .setTopic("user-profile-updates")
+                                                .setValueSerializationSchema(new JsonSerializationSchema<>()).build())
                                 // .setDeliverGuarantee(
                                 // DeliveryGuarantee.AT_LEAST_ONCE)
                                 .build();
@@ -68,7 +62,6 @@ public class AggregatorProfileJob {
                 try {
                         env.execute("User Profile Aggregator Job");
                 } catch (Exception e) {
-                        // TODO Auto-generated catch block
                         logger.error("Error executing the Flink job {}", e);
                 }
         }
