@@ -1,4 +1,4 @@
-package com.example.controllers;
+package com.example.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,13 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.api.dto.Resp;
 import com.example.model.RawUserEvent;
-import com.example.services.KafkaProducerService;
+import com.example.service.KafkaProducerService;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
-
-
 
 @ApiResponses({ @ApiResponse(responseCode = "200", description = "Event recieved and Send"),
 		@ApiResponse(responseCode = "400", description = "Incorrect Event Format or Faile send Event due to Kafka not availability") })
