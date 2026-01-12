@@ -1,4 +1,4 @@
-package com.example.handlers;
+package com.example.handler;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.support.MethodArgumentNotValidException;
