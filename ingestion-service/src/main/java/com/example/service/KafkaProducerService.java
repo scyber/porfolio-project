@@ -1,4 +1,4 @@
-package com.example.services;
+package com.example.service;
 
 import java.util.concurrent.TimeUnit;
 
@@ -9,7 +9,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.handlers.KafkaSendException;
+import com.example.handler.KafkaSendException;
 import com.example.model.RawUserEvent;
 
 @Service
