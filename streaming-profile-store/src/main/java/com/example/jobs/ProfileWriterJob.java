@@ -35,14 +35,24 @@ import java.util.Properties;
 public class ProfileWriterJob {
 
   private static final Logger logger = LoggerFactory.getLogger(ProfileWriterJob.class);
+
   private static final String userProfileUpdatesTopic = "user-profile-updates";
+
   private static final String BOOTSTRAP_SERVERS = "kafka-0:9092,kafka-1:9092,kafka-2:9092";
+
+  private static final Long ENABLE_CHECKPOINT_INTERVAL = 30_000L;
+
+  private static final String REDIS_HOST = "redis";
+  private static final Integer REDIS_PORT = 6379;
+
+  private static final String REDIS_KEY = "user_profiles";
+
   private static final String GROUP_ID = "profile-writer-group";
 
   public static void main(String[] args) {
     logger.info("ProfileWriterJob started.");
     StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-    env.enableCheckpointing(30_000L);
+    env.enableCheckpointing(ENABLE_CHECKPOINT_INTERVAL);
 
     KafkaSource<UserProfileUpdated> sourceUserProfilSource = KafkaSource.<UserProfileUpdated>builder()
         .setBootstrapServers(BOOTSTRAP_SERVERS).setTopics(userProfileUpdatesTopic).setGroupId(GROUP_ID)
@@ -66,7 +76,7 @@ public class ProfileWriterJob {
         .returns(Types.TUPLE(Types.STRING, Types.STRING)).name("to-userid-profile-json-tuple");
 
     updatesDataStream.map(userProfile -> {
-      try (Jedis jedis = new Jedis("redis", 6379)) {
+      try (Jedis jedis = new Jedis(REDIS_HOST, REDIS_PORT)) {
         jedis.hset("user_profiles", userProfile.userId(), mapper.writeValueAsString(userProfile.profile()));
       } catch (Exception e) {
         logger.error("Error writing to Redis for userId {}: {}", userProfile.userId(), e.getMessage());

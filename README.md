@@ -241,7 +241,7 @@ java -jar streaming-profile-writer/target/*.jar
 curl -X POST http://localhost:8081/events \
   -H "Content-Type: application/json" \
   -d '{"userId":"user123","eventType":"VIEW","timestamp":1714060800000,
-       "context":{"page":"home","itemId":"item001","category":"tech","device":"mobile","geo":"de"}}'
+       "context":{"page":"home","itemId":"item001","category":"tech","device":"mobile","geo":"EU"}}'
 ```
 
 ### Request personalization

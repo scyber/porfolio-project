@@ -1,15 +1,16 @@
-package com.example.services;
+package com.example.service;
 
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.handlers.KafkaSendException;
+import com.example.handler.KafkaSendException;
 import com.example.model.RawUserEvent;
 
 @Service
