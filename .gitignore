@@ -4,6 +4,7 @@ target/
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
+.idea/
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
@@ -25,11 +26,15 @@ target/
 /nbproject/private/
 /nbbuild/
 /dist/
+**/bin/*
 /nbdist/
 /.nb-gradle/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
+**/dependency-reduced-pom.xml
+**/MavenWrapperDownloader.java
+
 
 ### VS Code ###
 .vscode/

@@ -1,0 +1,19 @@
+name: Spotless Check
+
+on: [push, pull_request]
+
+jobs:
+  spotless:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Run Spotless Check
+        run: mvn spotless:check

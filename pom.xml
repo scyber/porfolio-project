@@ -1,86 +1,131 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Spring Boot parent (ВАЖНО: стоит сразу после modelVersion) -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.3.13</version>
+	</parent>
+
 	<groupId>com.example</groupId>
 	<artifactId>portfolio-project</artifactId>
+	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<version>1.0-SNAPSHOT</version>
-
-	<name>portfolio-project</name>
-
-	<url>http://maven.apache.org</url>
+	<modules>
+		<module>generator-job</module>
+		<module>kafka-job</module>
+		<module>backend</module>
+		<module>ingestion-service</module>
+		<module>streaming-event-enricher</module>
+		<module>common</module>
+		<module>streaming-profile-aggregator</module>
+		<module>streaming-profile-store</module>
+	</modules>
 
 	<properties>
-		<maven.compiler.source>21</maven.compiler.source>
-		<maven.compiler.target>21</maven.compiler.target>
+		<maven.compiler.release>17</maven.compiler.release>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- Внешние библиотеки, которые НЕ управляются Spring Boot -->
+		<flink.version>2.1.1</flink.version>
+		<postgres.version>42.7.7</postgres.version>
+		<debezium.version>3.3.2.Final</debezium.version>
+		<postgresql.version>42.7.7</postgresql.version>
 	</properties>
 
-
+	<!-- Dependency Management: только внешние библиотеки -->
 	<dependencyManagement>
 		<dependencies>
 
+			<!-- Flink -->
 			<dependency>
-				<groupId>org.junit.jupiter</groupId>
-				<artifactId>junit-jupiter</artifactId>
-				<version>5.8.1</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.junit.jupiter</groupId>
-				<artifactId>junit-jupiter-engine</artifactId>
-				<version>5.8.1</version>
-				<scope>test</scope>
+				<groupId>org.apache.flink</groupId>
+				<artifactId>flink-parent</artifactId>
+				<version>${flink.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flink</groupId>
-				<artifactId>flink-quickstart-java</artifactId>
-				<version>2.2.0</version>
+				<artifactId>flink-runtime</artifactId>
+				<version>${flink.version}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flink</groupId>
-				<artifactId>flink-core</artifactId>
-				<version>2.2.0</version>
-				<scope>provided</scope>
+				<artifactId>flink-connector-jdbc</artifactId>
+				<version>3.1.1-1.17</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flink</groupId>
-				<artifactId>flink-streaming-java</artifactId>
-				<version>2.2.0</version>
-				<scope>provided</scope>
+				<artifactId>flink-connector-redis_2.10</artifactId>
+				<version>1.1.5</version>
 			</dependency>
+			<dependency>
+				<groupId>org.apache.flink</groupId>
+				<artifactId>flink-connector-kafka</artifactId>
+				<version>4.0.1-2.0</version>
+			</dependency>
+
+			<!-- Debezium -->
+			<!-- <dependency>
+				<groupId>io.debezium</groupId>
+				<artifactId>debezium-api</artifactId>
+				<version>${debezium.version}</version>
+			</dependency> -->
+			<!-- <dependency>
+				<groupId>io.debezium</groupId>
+				<artifactId>debezium-connector-postgres</artifactId>
+				<version>${debezium.version}</version>
+			</dependency> -->
+
 
 			<dependency>
 				<groupId>org.apache.flink</groupId>
-				<artifactId>flink-test-utils</artifactId>
-				<version>2.2.0</version>
-				<scope>test</scope>
+				<artifactId>flink-connector-datagen</artifactId>
+				<version>${flink.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.ververica</groupId>
+				<artifactId>flink-connector-postgres-cdc</artifactId>
+				<version>3.0.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>io.lettuce</groupId>
+				<artifactId>lettuce-core</artifactId>
+				<version>7.0.0.RELEASE</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>${postgres.version}</version>
 			</dependency>
 
 		</dependencies>
-
 	</dependencyManagement>
-	<modules>
-		<module>flink-jobs</module>
-	</modules>
 
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
+				<groupId>com.diffplug.spotless</groupId>
+				<artifactId>spotless-maven-plugin</artifactId>
+				<version>2.43.0</version>
 				<configuration>
-					<source>${maven.compiler.source}</source>
-					<target>${maven.compiler.target}</target>
+					<java>
+						<googleJavaFormat />
+					</java>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
