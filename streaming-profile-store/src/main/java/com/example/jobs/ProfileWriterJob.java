@@ -84,28 +84,29 @@ public class ProfileWriterJob {
       return userProfile;
     }).name("redis hset");
 
-    FlinkJedisPoolConfig redisConfig = new FlinkJedisPoolConfig.Builder().setHost("redis").setPort(6379).build();
+    // FlinkJedisPoolConfig redisConfig = new
+    // FlinkJedisPoolConfig.Builder().setHost("redis").setPort(6379).build();
 
-    RedisMapper<Tuple2<String, String>> redisMapper = new
-    RedisMapper<Tuple2<String, String>>() {
-    @Override
-    public RedisCommandDescription getCommandDescription() {
-    return new RedisCommandDescription(RedisCommand.HSET, "user_profiles");
-    }
+    // RedisMapper<Tuple2<String, String>> redisMapper = new
+    // RedisMapper<Tuple2<String, String>>() {
+    // @Override
+    // public RedisCommandDescription getCommandDescription() {
+    // return new RedisCommandDescription(RedisCommand.HSET, "user_profiles");
+    // }
 
-    @Override
-    public String getKeyFromData(Tuple2<String, String> data) {
-    return data.f0; // userId
-    }
+    // @Override
+    // public String getKeyFromData(Tuple2<String, String> data) {
+    // return data.f0; // userId
+    // }
 
-    @Override
-    public String getValueFromData(Tuple2<String, String> data) {
-    return data.f1; // profile as JSON string
-    }
-    };
+    // @Override
+    // public String getValueFromData(Tuple2<String, String> data) {
+    // return data.f1; // profile as JSON string
+    // }
+    // };
 
-    RedisSink<Tuple2<String, String>> redisSink = new RedisSink<>(redisConfig,
-    redisMapper);
+    // RedisSink<Tuple2<String, String>> redisSink = new RedisSink<>(redisConfig,
+    // redisMapper);
 
     // Преобразуем профиль в список пар (hash="user:{id}", "field:value")
     // ToDo implement Redis sink
