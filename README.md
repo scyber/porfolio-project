@@ -231,18 +231,30 @@ java -jar streaming-profile-aggregator/target/*.jar
 java -jar streaming-profile-writer/target/*.jar
 ```
 
+##### jobs could be also submitted with flink UI
+
+```
+http://localhost:8081/
+```
+
 ---
 
-# 🧪 **Testing the Pipeline**
+## 🧪 **Testing the Pipeline**
 
 ### Send a test event
 
 ```
-curl -X POST http://localhost:8081/events \
+curl -X POST http://localhost:9090/events \
   -H "Content-Type: application/json" \
   -d '{"userId":"user123","eventType":"VIEW","timestamp":1714060800000,
-       "context":{"page":"home","itemId":"item001","category":"tech","device":"mobile","geo":"EU"}}'
+       "context":{"page":"home","itemId":"item001","category":"SPORT","device":"mobile","geo":"EU"}}'
 ```
+
+#### service also available with swagger
+
+http://localhost:9090/swagger-ui/index.html
+
+#### toDo
 
 ### Request personalization
 
