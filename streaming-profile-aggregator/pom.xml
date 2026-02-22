@@ -28,21 +28,18 @@
             <version>${project.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-connector-kafka</artifactId>
-            <scope>compile</scope>
-        </dependency>
         <!-- Flink dependencies -->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-runtime</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Kafka Connector -->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-kafka</artifactId>
+            <scope>compile</scope>
         </dependency>
 
         <!-- Common module dependency -->
@@ -55,6 +52,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>
@@ -65,6 +63,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.0</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -72,22 +71,20 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <transformers>
-                                <transformer
-                                    implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
-                                    <resource>
-                                        META-INF/services/org.apache.flink.table.factories.Factory</resource>
-                                </transformer>
-                            </transformers>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+
                             <filters>
-                                <!-- Исключаем Flink-классы -->
                                 <filter>
                                     <artifact>*:*</artifact>
-                                    <!--
                                     <excludes>
-                                        <exclude>org/apache/flink/**</exclude>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                        <exclude>META-INF/LICENSE*</exclude>
+                                        <exclude>META-INF/NOTICE*</exclude>
+                                        <exclude>META-INF/native-image/**</exclude>
+                                        <exclude>module-info.class</exclude>
                                     </excludes>
-                                    -->
                                 </filter>
                             </filters>
                         </configuration>

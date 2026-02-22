@@ -75,23 +75,17 @@
 			</dependency>
 
 			<!-- Debezium -->
-			<dependency>
+			<!-- <dependency>
 				<groupId>io.debezium</groupId>
 				<artifactId>debezium-api</artifactId>
 				<version>${debezium.version}</version>
-			</dependency>
+			</dependency> -->
 			<!-- <dependency>
 				<groupId>io.debezium</groupId>
 				<artifactId>debezium-connector-postgres</artifactId>
 				<version>${debezium.version}</version>
 			</dependency> -->
 
-			<!-- PostgreSQL -->
-			<dependency>
-				<groupId>org.postgresql</groupId>
-				<artifactId>postgresql</artifactId>
-				<version>${postgres.version}</version>
-			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flink</groupId>
@@ -120,4 +114,18 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.diffplug.spotless</groupId>
+				<artifactId>spotless-maven-plugin</artifactId>
+				<version>2.43.0</version>
+				<configuration>
+					<java>
+						<googleJavaFormat />
+					</java>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
